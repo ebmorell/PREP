@@ -119,8 +119,9 @@ ax2.grid(True)
 ax2.legend()
 st.pyplot(fig2)
 
-# Tabla final de comparación
-st.markdown("### 📄 Tabla final (últimos 10 días)")
-df_final = df_compare.tail(10).round(0).astype(int)
+# Tabla completa de comparación
+st.markdown("### 📄 Tabla completa de infectados por día y estrategia")
+df_final = df_compare.round(0).astype(int)
 st.dataframe(df_final)
+
 
