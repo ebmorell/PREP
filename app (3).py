@@ -31,6 +31,7 @@ oral_efficacy = st.slider("Eficacia de PrEP oral con buena adherencia", 0.0, 1.0
 # Explicación
 st.markdown(
     f"🧠 **Nota**: Puedes ajustar la eficacia teniendo en cuenta la adherencia siguiendo los datos de la literatura:"
+    
     "- ≥90 % si la adherencia es ≥90 %\n"
     "- ~70–85 % si la adherencia es entre 60–89 %\n"
     "- <50 % si la adherencia es <60 %  \n"
@@ -39,6 +40,11 @@ st.markdown(
 st.markdown("### 💉 Parámetros de lenacapavir")
 inj_coverage = st.slider("Cobertura poblacional lenacapavir", 0.0, 1.0, 0.5)
 inj_efficacy = st.slider("Eficacia de lenacapavir", 0.0, 1.0, 0.96)
+st.markdown(
+    "🧠 **Nota**: Lenacapavir, al administrarse cada 6 meses, evita las fluctuaciones de adherencia diaria.\n"
+    "- En estudios PURPOSE, su eficacia ha sido superior al **95 %** incluso en condiciones reales.\n"
+    "- Puede considerarse una opción con mayor protección sostenida frente al VIH."
+)
 
 # Diccionario de escenarios
 scenarios = {
