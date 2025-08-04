@@ -14,6 +14,12 @@ days = st.slider("Duración del seguimiento (días)", 30, 1095, value=365, step=
 initial_infected = st.slider("Infectados iniciales", 0, N, value=100, step=10)
 contact_rate = st.slider("Contactos sexuales por persona y día", 0.1, 3.0, value=0.5, step=0.1)
 
+st.markdown("### 🧬 Supuestos del modelo")
+st.info(
+    "📌 El riesgo de transmisión por contacto sexual se fija en un **0,1 % por acto sexual** (basado en relaciones anales receptivas sin protección), "
+    "en línea con los datos de referencia de los CDC y la OMS. Este valor es fijo en la simulación actual.",
+    icon="ℹ️"
+)
 # Riesgo de transmisión por contacto (0.1%)
 trans_prob = 0.001
 
