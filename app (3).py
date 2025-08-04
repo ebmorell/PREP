@@ -1,3 +1,9 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from io import BytesIO
+
 st.subheader("📊 Comparación de estrategias de PrEP (nuevas infecciones y acumuladas)")
 
 scenarios = {
