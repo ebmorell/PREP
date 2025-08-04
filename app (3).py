@@ -35,7 +35,7 @@ st.markdown(
     - **≥95 %** de eficacia si la adherencia es **≥90 %** (≥6 dosis/semana)\n
     - **~70–85 %** si la adherencia está entre **60–89 %** (4–5 dosis/semana)\n
     - **<50 %** si la adherencia es **<60 %** (<4 dosis/semana)\n\n
-    *Puedes ajustar manualmente la eficacia en el siguiente control.*
+    *Puedes ajustar manualmente la eficacia.*
     """
 )
 
