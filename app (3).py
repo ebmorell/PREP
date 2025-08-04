@@ -4,8 +4,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from io import BytesIO
 
+# Parámetros generales de simulación
+N = 10000
+initial_infected = 100
+days = 365
+contact_rate = 0.5
+trans_prob = 0.001  # Riesgo de transmisión por contacto
+
+# Encabezado
 st.subheader("📊 Comparación de estrategias de PrEP (nuevas infecciones y acumuladas)")
 
+# Escenarios
 scenarios = {
     "Sin PrEP": {"oral_coverage": 0, "oral_adherence": 0, "oral_efficacy": 0, "inj_coverage": 0, "inj_efficacy": 0},
     "PrEP oral": {"oral_coverage": 0.5, "oral_adherence": 0.8, "oral_efficacy": 0.95, "inj_coverage": 0, "inj_efficacy": 0},
@@ -15,6 +24,7 @@ scenarios = {
 results_daily = {}
 results_cumulative = {}
 
+# Simulación
 for name, params in scenarios.items():
     S = np.zeros(days)
     daily_new = np.zeros(days)
@@ -40,7 +50,7 @@ for name, params in scenarios.items():
     results_daily[name] = daily_new
     results_cumulative[name] = I_cum
 
-# Crear DataFrame para tabla
+# Crear DataFrame
 df_result = pd.DataFrame({
     "Día": np.arange(days),
     "Nuevas (Sin PrEP)": results_daily["Sin PrEP"],
@@ -55,7 +65,21 @@ df_result = pd.DataFrame({
 st.markdown("### 📄 Evolución diaria de nuevas y acumuladas")
 st.dataframe(df_result)
 
-# Gráfica de nuevas infecciones diarias
+# Descargar como Excel
+output = BytesIO()
+with pd.ExcelWriter(output, engine='openpyxl') as writer:
+    df_result.to_excel(writer, index=False, sheet_name='Resultados')
+    writer.save()
+    processed_data = output.getvalue()
+
+st.download_button(
+    label="📥 Descargar tabla como Excel",
+    data=processed_data,
+    file_name="simulacion_prep_vih.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+# Gráfica nuevas infecciones diarias
 st.markdown("### 📈 Nuevas infecciones diarias por estrategia")
 fig1, ax1 = plt.subplots()
 ax1.plot(df_result["Día"], df_result["Nuevas (Sin PrEP)"], label="Sin PrEP", linestyle="--")
@@ -68,7 +92,7 @@ ax1.grid(True)
 ax1.legend()
 st.pyplot(fig1)
 
-# Gráfica de acumuladas
+# Gráfica infecciones acumuladas
 st.markdown("### 🧮 Infecciones acumuladas por estrategia")
 fig2, ax2 = plt.subplots()
 ax2.plot(df_result["Día"], df_result["Acumuladas (Sin PrEP)"], label="Sin PrEP", linestyle="--")
@@ -81,12 +105,4 @@ ax2.grid(True)
 ax2.legend()
 st.pyplot(fig2)
 
-# Descargar CSV
-csv = df_result.to_csv(index=False).encode('utf-8')
-st.download_button(
-    label="📥 Descargar tabla como CSV",
-    data=csv,
-    file_name='simulacion_prep_vih.csv',
-    mime='text/csv'
-)
 
