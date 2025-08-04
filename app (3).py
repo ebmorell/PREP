@@ -4,27 +4,38 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from io import BytesIO
 
+# Configuración general
+st.set_page_config(page_title="Modelo de PrEP en VIH", layout="centered")
+st.title("🧪 Simulador del impacto de la PrEP en VIH")
+st.markdown("Comparación entre estrategias de profilaxis preexposición (PrEP) para reducir nuevas infecciones por VIH.")
+
 # Parámetros generales de simulación
 N = 10000
 initial_infected = 100
 days = 365
 contact_rate = 0.5
-trans_prob = 0.001  # Riesgo de transmisión por contacto
+trans_prob = 0.001  # Riesgo de transmisión por contacto sexual
 
-# Encabezado
-st.subheader("📊 Comparación de estrategias de PrEP (nuevas infecciones y acumuladas)")
-
-# Escenarios
+# Escenarios definidos
 scenarios = {
-    "Sin PrEP": {"oral_coverage": 0, "oral_adherence": 0, "oral_efficacy": 0, "inj_coverage": 0, "inj_efficacy": 0},
-    "PrEP oral": {"oral_coverage": 0.5, "oral_adherence": 0.8, "oral_efficacy": 0.95, "inj_coverage": 0, "inj_efficacy": 0},
-    "Lenacapavir": {"oral_coverage": 0, "oral_adherence": 0, "oral_efficacy": 0, "inj_coverage": 0.5, "inj_efficacy": 0.96}
+    "Sin PrEP": {
+        "oral_coverage": 0, "oral_adherence": 0, "oral_efficacy": 0,
+        "inj_coverage": 0, "inj_efficacy": 0
+    },
+    "PrEP oral": {
+        "oral_coverage": 0.5, "oral_adherence": 0.8, "oral_efficacy": 0.95,
+        "inj_coverage": 0, "inj_efficacy": 0
+    },
+    "Lenacapavir": {
+        "oral_coverage": 0, "oral_adherence": 0, "oral_efficacy": 0,
+        "inj_coverage": 0.5, "inj_efficacy": 0.96
+    }
 }
 
+# Simulación
 results_daily = {}
 results_cumulative = {}
 
-# Simulación
 for name, params in scenarios.items():
     S = np.zeros(days)
     daily_new = np.zeros(days)
@@ -50,7 +61,7 @@ for name, params in scenarios.items():
     results_daily[name] = daily_new
     results_cumulative[name] = I_cum
 
-# Crear DataFrame
+# Crear DataFrame con resultados
 df_result = pd.DataFrame({
     "Día": np.arange(days),
     "Nuevas (Sin PrEP)": results_daily["Sin PrEP"],
@@ -61,8 +72,8 @@ df_result = pd.DataFrame({
     "Acumuladas (Lenacapavir)": results_cumulative["Lenacapavir"],
 }).round(0).astype(int)
 
-# Mostrar tabla
-st.markdown("### 📄 Evolución diaria de nuevas y acumuladas")
+# Mostrar tabla completa
+st.subheader("📊 Tabla de evolución diaria")
 st.dataframe(df_result)
 
 # Descargar como Excel
@@ -79,8 +90,8 @@ st.download_button(
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
-# Gráfica nuevas infecciones diarias
-st.markdown("### 📈 Nuevas infecciones diarias por estrategia")
+# Gráfica de nuevas infecciones diarias
+st.subheader("📈 Nuevas infecciones por día")
 fig1, ax1 = plt.subplots()
 ax1.plot(df_result["Día"], df_result["Nuevas (Sin PrEP)"], label="Sin PrEP", linestyle="--")
 ax1.plot(df_result["Día"], df_result["Nuevas (PrEP oral)"], label="PrEP oral")
@@ -92,17 +103,18 @@ ax1.grid(True)
 ax1.legend()
 st.pyplot(fig1)
 
-# Gráfica infecciones acumuladas
-st.markdown("### 🧮 Infecciones acumuladas por estrategia")
+# Gráfica de infecciones acumuladas
+st.subheader("🧮 Infecciones acumuladas")
 fig2, ax2 = plt.subplots()
 ax2.plot(df_result["Día"], df_result["Acumuladas (Sin PrEP)"], label="Sin PrEP", linestyle="--")
 ax2.plot(df_result["Día"], df_result["Acumuladas (PrEP oral)"], label="PrEP oral")
 ax2.plot(df_result["Día"], df_result["Acumuladas (Lenacapavir)"], label="Lenacapavir")
 ax2.set_xlabel("Días")
-ax2.set_ylabel("Infectados acumulados")
+ax2.set_ylabel("Total infectados")
 ax2.set_title("Infecciones acumuladas por VIH")
 ax2.grid(True)
 ax2.legend()
 st.pyplot(fig2)
+
 
 
