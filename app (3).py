@@ -127,4 +127,20 @@ ax.grid(True)
 ax.legend()
 st.pyplot(fig)
 
+# Cálculo de reducción al final del periodo
+final_day = days - 1
+infected_base = results_cumulative["Sin PrEP"][final_day]
+infected_oral = results_cumulative["PrEP oral"][final_day]
+infected_inj = results_cumulative["Lenacapavir"][final_day]
+
+reduction_oral = (infected_base - infected_oral) / infected_base * 100
+reduction_inj = (infected_base - infected_inj) / infected_base * 100
+
+# Mostrar resultados
+st.subheader("📉 Reducción de infecciones al final del periodo")
+st.markdown(f"""
+- **Infecciones acumuladas (Sin PrEP):** {int(infected_base):,}
+- **PrEP oral:** {int(infected_oral):,} ➝ **Reducción:** {reduction_oral:.1f} %
+- **Lenacapavir:** {int(infected_inj):,} ➝ **Reducción:** {reduction_inj:.1f} %
+""")
 
