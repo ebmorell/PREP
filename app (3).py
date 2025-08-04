@@ -28,6 +28,18 @@ oral_coverage = st.slider("Cobertura poblacional PrEP oral", 0.0, 1.0, 0.5)
 oral_adherence = st.slider("Adherencia media PrEP oral", 0.0, 1.0, 0.8)
 oral_efficacy = st.slider("Eficacia de PrEP oral con buena adherencia", 0.0, 1.0, 0.95)
 
+# Adherencia media PrEP oral
+oral_adherence = st.slider("Adherencia media PrEP oral", 0.0, 1.0, 0.8)
+
+# Explicación
+st.markdown(
+    f"🧠 **Nota**: Con una adherencia del **{int(oral_adherence * 100)} %**, la eficacia esperada suele ser aproximadamente:\n"
+    "- ≥90 % si la adherencia es ≥90 %\n"
+    "- ~70–85 % si la adherencia es entre 60–89 %\n"
+    "- <50 % si la adherencia es <60 %  \n"
+    "*Puedes ajustar manualmente la eficacia en el siguiente control.*"
+)
+
 st.markdown("### 💉 Parámetros de lenacapavir")
 inj_coverage = st.slider("Cobertura poblacional lenacapavir", 0.0, 1.0, 0.5)
 inj_efficacy = st.slider("Eficacia de lenacapavir", 0.0, 1.0, 0.96)
