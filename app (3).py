@@ -67,7 +67,7 @@ summary_df = pd.DataFrame({
     "Infectados": I.astype(int),
     "Susceptibles": S.astype(int)
 })
-st.dataframe(summary_df.tail(10))
+st.dataframe(summary_df)
 # 🔁 Comparación entre estrategias (tabla y gráfico)
 st.subheader("📊 Comparación de estrategias de PrEP")
 
