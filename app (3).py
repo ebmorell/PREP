@@ -28,9 +28,6 @@ oral_coverage = st.slider("Cobertura poblacional PrEP oral", 0.0, 1.0, 0.5)
 oral_adherence = st.slider("Adherencia media PrEP oral", 0.0, 1.0, 0.8)
 oral_efficacy = st.slider("Eficacia de PrEP oral con buena adherencia", 0.0, 1.0, 0.95)
 
-# Adherencia media PrEP oral
-oral_adherence = st.slider("Adherencia media PrEP oral", 0.0, 1.0, 0.8)
-
 # Explicación
 st.markdown(
     f"🧠 **Nota**: Con una adherencia del **{int(oral_adherence * 100)} %**, la eficacia esperada suele ser aproximadamente:\n"
