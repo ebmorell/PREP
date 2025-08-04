@@ -80,7 +80,6 @@ st.dataframe(df_result)
 output = BytesIO()
 with pd.ExcelWriter(output, engine='openpyxl') as writer:
     df_result.to_excel(writer, index=False, sheet_name='Resultados')
-    writer.save()
     processed_data = output.getvalue()
 
 st.download_button(
