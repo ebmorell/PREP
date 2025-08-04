@@ -30,11 +30,11 @@ oral_efficacy = st.slider("Eficacia de PrEP oral con buena adherencia", 0.0, 1.0
 
 # Explicación
 st.markdown(
-    f"🧠 **Nota**: Puedes ajustar la eficacia teniendo en cuenta la adherencia siguiendo los datos de la literatura:"
-    
+    f"🧠 **Nota**: Con una adherencia del **{int(oral_adherence * 100)} %**, la eficacia esperada suele ser aproximadamente:\n"
     "- ≥90 % si la adherencia es ≥90 %\n"
     "- ~70–85 % si la adherencia es entre 60–89 %\n"
     "- <50 % si la adherencia es <60 %  \n"
+    "*Puedes ajustar manualmente la eficacia en el siguiente control.*"
 )
 
 st.markdown("### 💉 Parámetros de lenacapavir")
